@@ -1,11 +1,17 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 // Basic 
 public class LifeGrid {
 	
+	private GameOfLife app;
+	private LifeCanvas display;
+	private LifeControls controls;
+	
 	private int r;
 	private int c;
 	private int[][] grid; // create full map?
+	private int gen = 0;
 	
 	public LifeGrid(int rows, int cols) { // generates a grid r x c
 		// can also use this.r and this.c
@@ -33,6 +39,7 @@ public class LifeGrid {
 	}
 	
 	public void evolve() {
+		controls = new LifeControls(app);
 		// Outline of process
 		// Create a TEMP grid of the same dimensions.
 		
@@ -94,7 +101,7 @@ public class LifeGrid {
 //			} else {
 				y = deadCells.get(cellPos+1);
 				
-				System.out.println(x + ", " + y);
+//				System.out.println(x + ", " + y);
 //			}
 			
 //			System.out.println(x + ", " + y);
@@ -129,7 +136,81 @@ public class LifeGrid {
 		 * wrap cells that would be killed :/
 		 * */
 		
+		// updates generations
+//		gen++;
+//	    controls.setGeneration(gen);
+	      
+		savePreset();
+		
 	}
+	
+	public String savePreset() {
+		ArrayList<Integer> preset = new ArrayList<Integer>();
+		
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				if (grid[i][j] == 1) { // saves x and y values of live cells
+					preset.add(i); // adds x
+					preset.add(j); // adds y
+//					System.out.println(preset);
+				}
+			}
+		}
+		
+//		return preset;
+		
+		// CHANGE IT TO MAKE IT YOUR OWN, DO NOT COPY!!!!!
+		StringBuilder sb = new StringBuilder();
+        for (Integer element : preset) {
+            sb.append(element).append(",");
+        }
+        // Remove the trailing comma
+        return sb.length() > 0 ? sb.substring(0, sb.length() - 1) : "";
+	}
+	
+	public void loadPreset(String text) {
+		app = new GameOfLife();
+		display = new LifeCanvas(app);
+		
+		app.clear();
+		
+		ArrayList<Integer> result = new ArrayList<Integer>();
+        if (!text.isEmpty()) {
+            String[] parts = text.split(",");
+            for (String part : parts) {
+                result.add(Integer.parseInt(part));
+            }
+        }
+        System.out.println(result);
+        // NOW DRAW THE PRESET (uses same code as deadCells & reCells)
+        for (int cellPos = 0; cellPos < result.size()-1; cellPos++) {
+        	int x = 0;
+			int y = 0;
+			
+			x = result.get(cellPos);
+			y = result.get(cellPos+1);
+			
+			
+			
+//			System.out.println(x + ", " + y);
+			if (cellPos%2==0) {
+				grid[x][y] = 1;
+//				System.out.println("YESSSS");
+				
+//				display.drawLoadedPreset(x*display.cellSize, y*display.cellSize, 1);
+//				app.load();
+				System.out.println(x*display.cellSize + ", " + y*display.cellSize);
+//				System.out.println(grid[x][y]);
+			}
+        }
+        
+        display.repaintGrid();
+        
+        
+        
+//        display.paintComponent(app.getGraphics());
+        
+        }
 	
 	private int countNeighbors(int r, int c) {
 		// CHECK BOUNDARIES (r can't be below 0, can't be above grid length), same with c
