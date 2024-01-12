@@ -22,7 +22,7 @@ public class GameOfLife extends JFrame implements ActionListener
     private JTextField preset;
     private JButton save;
     private final String saveLabelText = "Save";
-    private int gen = 0;
+    public int gen = 0;
  
     
     public GameOfLife() {
@@ -95,7 +95,10 @@ public class GameOfLife extends JFrame implements ActionListener
     }
     
     public void clear() {
+    	gen = 0;
+    	controls.setGeneration(gen);
     	display.clear();
+    	
     }
     
     public void save() {
