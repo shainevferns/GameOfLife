@@ -3,4 +3,10 @@ Updates:
 1/9/2024 - Added evolve + finished checkNeighbors
 	* when Next button is pressed, stops the app and changes Stop button to Start 
 	
-1/11/2024 - (wip) made the cells be able to wrap around the grid
+1/11/2024 - hugely optimized the start/stop feature
+- added custom speed
+	- when you click the option, a slider appears that can edit the speed from 5 to 1000 ms
+	- sacrifices the load input text box on use, but it can come back if you click off Custom setting
+- added a save and load feature (super unoptimized, but works)
+	- saves in real time AND through a button that puts the save code in the text area
+- added the Generation count (affected by Next and Start/stop button
