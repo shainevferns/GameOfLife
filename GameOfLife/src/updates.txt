@@ -1,0 +1,6 @@
+Updates:
+
+1/9/2024 - Added evolve + finished checkNeighbors
+	* when Next button is pressed, stops the app and changes Stop button to Start 
+	
+1/11/2024 - (wip) made the cells be able to wrap around the grid
